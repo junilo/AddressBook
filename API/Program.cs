@@ -32,7 +32,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 
-app.MapGet("/contacts", async(AppDbContext dbContext, string q) =>
+app.MapGet("/contacts", async(AppDbContext dbContext, string? q = "") =>
 {
     var query = dbContext.Contacts.Where(w => !w.IsDeleted);
 
