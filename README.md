@@ -78,9 +78,9 @@ A simple web interface built with HTML, CSS, and JavaScript, jQuery and Bootstra
 	
 2. Open scripts.js
 
-Update these constants:
-
-	```javasript
+	Update these constants:
+	
+	```bash
 	const baseApiUri = '<The URL of the running API>';
 	const mapApiKey = '<Your Google ApiKey>'
 	
