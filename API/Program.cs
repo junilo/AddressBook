@@ -1,6 +1,6 @@
 using API;
 using API.Models;
-using Microsoft.EntityFrameworkCore;
+using API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,105 +32,30 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 
-app.MapGet("/contacts", async(AppDbContext dbContext, string? q = "") =>
+app.MapGet("/contacts", async(IContactService contactService, string? q = "") =>
 {
-    var query = dbContext.Contacts.Where(w => !w.IsDeleted);
-
-    if (!string.IsNullOrEmpty(q))
-    {
-        query = query.Where(
-            w => (w.Name != null && EF.Functions.Like(w.Name.ToLower(), $"%{q.ToLower()}%")) ||
-            (w.Email != null && EF.Functions.Like(w.Email.ToLower(), $"%{q.ToLower()}%")) ||
-            (w.Phone != null && EF.Functions.Like(w.Phone.ToLower(), $"%{q.ToLower()}%")) ||
-            (w.Address != null && EF.Functions.Like(w.Address.ToLower(), $"%{q.ToLower()}%"))
-        );
-    }
-
-    return await query.OrderBy(o => o.Id)
-        .Select(s => new Contact
-        {
-            Id = s.Id,
-            Name = s.Name,
-            Email = s.Email,
-            Phone = s.Phone,
-            Address = s.Address
-        })
-        .ToListAsync();
+    return await contactService.GetContacts(q);
 });
 
-app.MapGet("/contact/{id}", async (AppDbContext dbContext, int id) =>
+app.MapGet("/contact/{id}", async (IContactService contactService, int id) =>
 {
-    if (id <= 0)
-    {
-        return null;
-    }
-
-    var contact = await dbContext.Contacts
-        .Where(w => w.Id == id && !w.IsDeleted)
-        .OrderBy(o => o.Id)
-        .Select(s => new Contact
-        {
-            Id = s.Id,
-            Name = s.Name,
-            Email = s.Email,
-            Phone = s.Phone,
-            Address = s.Address
-        })
-        .FirstOrDefaultAsync();
-
-    return contact;
+    return await contactService.GetContact(id);
 });
 
-app.MapPost("/contact", async (AppDbContext dbContext, Contact contact) =>
+app.MapPost("/contact", async (IContactService contactService, Contact request) =>
 {
-    dbContext.Contacts.Add(contact);
-    await dbContext.SaveChangesAsync();
-
-    return contact;
+    return await contactService.AddContact(request);
 });
 
-app.MapPut("/contact/{id}", async (AppDbContext dbContext, int id, Contact request) =>
+app.MapPut("/contact/{id}", async (IContactService contactService, int id, Contact request) =>
 {
-    if (id == 0)
-    {
-        return null;
-    }
-
-    var contact = await dbContext.Contacts.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
-    if (contact == null)
-    {
-        return null;
-    }
-
-    contact.Address = request.Address;
-    contact.Phone = request.Phone;
-    contact.Email = request.Email;
-    contact.Name = request.Name;
-    
-    await dbContext.SaveChangesAsync();
-
-    return contact;
+    request.Id = id;
+    return await contactService.UpdateContact(request);
 });
 
-app.MapDelete("/contact/{id}", async (AppDbContext dbContext, int id) =>
+app.MapDelete("/contact/{id}", async (IContactService contactService, int id) =>
 {
-    if (id == 0)
-    {
-        return false;
-    }
-
-    var contact = await dbContext.Contacts.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
-    if (contact == null)
-    {
-        return false;
-    }
-
-    // We are using soft-delete approach instead of hard deletion
-    contact.IsDeleted = true;
-
-    await dbContext.SaveChangesAsync();
-
-    return true;
+    return await contactService.DeleteContact(id);
 });
 
 app.Run();
