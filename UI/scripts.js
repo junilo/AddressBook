@@ -1,5 +1,5 @@
 const baseApiUri = '<API BASE URL>';
-const mapApiKey = '<GOOGLE MAP APIKEY>'
+const mapApiKey = '<GOOGLE MAPS APIKEY>'
 
 $(document).ready(function() {
 
@@ -30,13 +30,17 @@ $(document).ready(function() {
     });
 
     $('#backdrop').click(function() {
+        resetFields();
         $('#contactForm').hide();
+        $('#deleteConfirmationForm').hide();
         $(this).hide();
     });
 
     $('#cancelBtn').click(function() {
         $('#contactForm').hide();
         $('#backdrop').hide();
+
+        resetFields();
     });
 
     $('#deleteCancelBtn').click(function() {
@@ -87,11 +91,7 @@ $(document).ready(function() {
                     addContactRow(table, contact);
                 }
 
-                $('#name').val('');
-                $('#email').val('');
-                $('#phone').val('');
-                $('#address').val('');
-                $('#contactId').val('');
+                resetFields();
 
                 $('#contactForm').hide();
                 $('#backdrop').hide();
@@ -118,13 +118,7 @@ $(document).ready(function() {
                     row = $(`#contact${contactId}address`)
                     row.remove();
                     
-                    $('#name').val('');
-                    $('#email').val('');
-                    $('#phone').val('');
-                    $('#address').val('');
-                    $('#contactId').val('');
-                    $('#deleteContactId').val('');
-                    $('#contactName').text('');
+                    resetFields();
 
                     $('#deleteConfirmationForm').hide();
                     $('#contactForm').hide();
@@ -137,6 +131,18 @@ $(document).ready(function() {
         });
     });
 });
+
+function resetFields() {
+    $('#name').val('');
+    $('#email').val('');
+    $('#phone').val('');
+    $('#address').val('');
+    $('#contactId').val('');
+    $('#deleteContactId').val('');
+    $('#contactName').text('');
+    $('#addressMap').attr('src', '');
+    $('#addressMap').hide();
+}
 
 function getContacts(q) {
     if (!q) {

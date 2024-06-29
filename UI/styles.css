@@ -58,3 +58,11 @@
 #addressMap {
     display: none;
 }
+
+#deleteConfirmationFormForm {
+    text-align: center;
+}
+
+.required {
+    color: red;
+}
