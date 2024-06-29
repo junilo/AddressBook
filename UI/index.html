@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Address Book</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Our custom JavaScript -->
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <div id="addressBook">
+        <input type="text" id="searchContacts" class="form-control" placeholder="Search contacts" />
+        <div id="contacts">
+            <!-- Table will be populated here -->
+        </div>
+        <br />
+        <button id="createContactBtn" class="btn btn-primary">Create Contact</button>
+    </div>
+
+    <!-- The popup form -->
+    <div class="form-popup" id="contactForm">
+        <form id="contactFormForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <img id="addressMap" src="" alt="Google Map">
+            </div>
+
+            <!-- hidden id used for updating contact -->
+             <input type="hidden" id="contactId" value="" />
+            <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+            <button type="button" id="deleteBtn" class="btn btn-danger">Delete</button>
+            <button type="submit" id="saveBtn" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+
+    <!-- The popup form -->
+    <div class="form-popup" id="deleteConfirmationForm">
+        <form id="deleteConfirmationFormForm">
+            <div class="form-group">
+                <label for="name">Are you sure you want to delete <b id="contactName"></b>?</label>
+            </div>
+            <input type="hidden" id="deleteContactId" value="" />
+            <button type="button" id="deleteCancelBtn" class="btn btn-secondary">Cancel</button>
+            <button type="submit" id="deleteConfirmBtn" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+
+    <!-- The backdrop -->
+    <div class="backdrop" id="backdrop"></div>
+</body>
+</html>
