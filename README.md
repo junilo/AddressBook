@@ -8,6 +8,7 @@ Using C# .NET 8 Minimal API
 ### Endpoints
 
 - **GET /contacts?q={q}**: Retrieve a list of contacts with optional query parameter.
+- **GET /contact/id**: Retrieve a contact using the specified id.
 - **POST /contact**: Create a new contact.
 - **PUT /contact/{id}**: Update an existing contact.
 - **DELETE /contact/{id}**: Delete an contact.
