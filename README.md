@@ -39,25 +39,28 @@ A simple web interface built with HTML, CSS, and JavaScript, jQuery and Bootstra
     ```
 
 2. Restore dependencies:
-    I am using Visual Studio 2022. Rebuild of the whole solution should restore dependencies.
-    ```
 
-3. Update the connection string in `appsettings.json`:
+    I am using Visual Studio 2022. Rebuild of the whole solution should restore dependencies.
+
+4. Update the connection string in `appsettings.json`:
     ```json
     "ConnectionStrings": {
         "SqlServerConnectionString": "Data Source=(localdb)\\MSSQLLocalDB;Database=AddressBookDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
     }
     ```
 
-4. Apply migrations and update the database:
+5. Apply migrations and update the database:
+
 	I used Package Manager Console:
+
 	```bash
 	Add-Migration InitialCreate
 	Update-Database
 	```
 	
 
-5. Run the application:
+6. Run the application:
+
    Using VS 2022, open 'API' solution.
    Right-click on the solution, Debug > Start New Instance
 
