@@ -35,7 +35,7 @@ A simple web interface built with HTML, CSS, and JavaScript, jQuery and Bootstra
 ### Setup
 1. Clone the repository:
     ```bash
-    git clone https://github.com/junilo/Full-Stack-.NET-8.git
+    git clone https://github.com/junilo/AddressBook.git
     ```
 
 2. Restore dependencies:
@@ -74,14 +74,15 @@ A simple web interface built with HTML, CSS, and JavaScript, jQuery and Bootstra
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/junilo/Full-Stack-.NET-8.git
+    git clone https://github.com/junilo/AddressBook.git
 	
 2. Open scripts.js
+
+Update these constants:
 
 	```javasript
 	const baseApiUri = '<The URL of the running API>';
 	const mapApiKey = '<Your Google ApiKey>'
 	
 3. Open index.html in a browser
-	```
 
